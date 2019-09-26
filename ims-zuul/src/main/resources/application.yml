@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: zuul-service
+server:
+  port: 8011
+eureka:
+  client:
+    service-url: # EurekaServer地址
+      defaultZone: http://127.0.0.1:8001/eureka
+zuul:
+  routes:
+    auth-service:
+      path: /auth/**
+      serviceId: auth-service
+      strip-prefix: false
+    depr:
+      path: /depr/**
+      serviceId: depr-service
+      strip-prefix: false
+    pcms:
+      path: /pcms/**
+      serviceId: pcms-service
+      strip-prefix: false
+  # 禁止服务自动添加
+  ignored-services: '*'
+  retryable: true #开启重试机制
+  sensitive-headers: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+  #ignore-security-headers: false
+
+
+
+

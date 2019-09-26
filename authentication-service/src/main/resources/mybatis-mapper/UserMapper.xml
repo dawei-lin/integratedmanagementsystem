@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.infinova.authenticationservice.dao.UserDao">
+
+	<sql id="where">
+		<where>
+			<if test="params.username != null and params.username != ''">
+				and t.username like concat('%', #{params.username}, '%')
+			</if>
+			<if test="params.realname != null and params.realname != ''">
+				and t.realname like concat('%', #{params.realname}, '%')
+			</if>
+			<if test="params.phone != null and params.phone != ''">
+				and t.phone like concat('%', #{params.phone}, '%')
+			</if>
+			<if test="params.phone != null and params.phone != ''">
+				and t.departmentName like concat('%', #{params.departmentName}, '%')
+			</if>
+			<if test="params.status != null and params.status != ''">
+				and t.status = #{params.status}
+			</if>
+		</where>
+	</sql>
+
+	<!--多条件模糊查询-->
+	<sql id="orwhere">
+		<where>
+			<if test="params.username != null and params.username != ''">
+				 or t.username like concat('%', #{params.username}, '%')
+			</if>
+			<if test="params.realname != null and params.realname != ''">
+				or t.realname like concat('%', #{params.realname}, '%')
+			</if>
+			<if test="params.phone != null and params.phone != ''">
+				or t.phone like concat('%', #{params.phone}, '%')
+			</if>
+			<if test="params.departmentName != null and params.departmentName != ''">
+				or t.departmentName like concat('%', #{params.departmentName}, '%')
+			</if>
+			<if test="params.status != null and params.status != ''">
+				or t.status = #{params.status}
+			</if>
+			<if test="params.departmentId != null and params.departmentId != ''">
+				and t.departmentId = #{params.departmentId}
+			</if>
+		</where>
+	</sql>
+
+	<select id="count" resultType="int">
+		select count(1) from sys_user t
+		<include refid="orwhere" />
+	</select>
+
+	<select id="list" resultType="User">
+		select * from sys_user t
+		<include refid="orwhere" />
+		${params.orderBy}
+        limit #{offset}, #{limit}
+	</select>
+
+	<insert id="saveUserRoles">
+		insert into sys_role_user(roleId, userId) values
+		<foreach collection="roleIds" item="roleId" separator=",">
+			(#{roleId}, #{userId})
+		</foreach>
+	</insert>
+
+	<update id="update">
+		update sys_user t
+		<set>
+			<if test="username != null">
+				username = #{username},
+			</if>
+			<if test="realname != null">
+				realname = #{realname},
+			</if>
+			<if test="workCode != null">
+				workCode = #{workCode},
+			</if>
+			<if test="headImgUrl != null">
+				headImgUrl = #{headImgUrl},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="validTime != null">
+				validTime = #{validTime},
+			</if>
+			<if test="myltiLogin != null">
+				myltiLogin = #{myltiLogin},
+			</if>
+			<if test="departmentName != null">
+				departmentName = #{departmentName},
+			</if>
+			<if test="departmentId != null">
+				departmentId = #{departmentId},
+			</if>
+			<if test="description != null">
+				description = #{description},
+			</if>
+			updateTime = #{updateTime}
+		</set>
+		where t.id = #{id}
+	</update>
+</mapper>

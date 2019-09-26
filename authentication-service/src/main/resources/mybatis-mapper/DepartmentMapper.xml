@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.infinova.authenticationservice.dao.DepartmentDao" >
+  <resultMap id="BaseResultMap" type="com.infinova.authenticationservice.entity.Department" >
+    <constructor >
+        <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <arg column="departmentName" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="departmentCode" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="parentId" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="parentName" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="remark" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="creatTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        <arg column="lever" jdbcType="INTEGER" javaType="java.lang.Integer" />
+        <arg column="sort" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="key" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <arg column="value" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, departmentName, departmentCode, parentId, parentName, remark, creatTime, lever, 
+    sort, title, `key`, `value`
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_department
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_department
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.infinova.authenticationservice.entity.Department" useGeneratedKeys="true" keyProperty="id">
+
+    insert into t_department (id, departmentName, departmentCode, 
+      parentId, parentName, remark, 
+      creatTime, lever, sort, 
+      title, `key`, `value`)
+    values (#{id,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{departmentCode,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=VARCHAR}, #{parentName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{lever,jdbcType=INTEGER}, #{sort,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.infinova.authenticationservice.entity.Department" >
+    insert into t_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="departmentName != null" >
+        departmentName,
+      </if>
+      <if test="departmentCode != null" >
+        departmentCode,
+      </if>
+      <if test="parentId != null" >
+        parentId,
+      </if>
+      <if test="parentName != null" >
+        parentName,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creatTime != null" >
+        creatTime,
+      </if>
+      <if test="lever != null" >
+        lever,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="key != null" >
+        `key`,
+      </if>
+      <if test="value != null" >
+        `value`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null" >
+        #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null" >
+        #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lever != null" >
+        #{lever,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null" >
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.infinova.authenticationservice.entity.Department" >
+    update t_department
+    <set >
+      <if test="departmentName != null" >
+        departmentName = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCode != null" >
+        departmentCode = #{departmentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parentId = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentName != null" >
+        parentName = #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creatTime = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lever != null" >
+        lever = #{lever,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null" >
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        `value` = #{value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.infinova.authenticationservice.entity.Department" >
+    update t_department
+    set departmentName = #{departmentName,jdbcType=VARCHAR},
+      departmentCode = #{departmentCode,jdbcType=VARCHAR},
+      parentId = #{parentId,jdbcType=VARCHAR},
+      parentName = #{parentName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creatTime = #{creatTime,jdbcType=TIMESTAMP},
+      lever = #{lever,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      `key` = #{key,jdbcType=VARCHAR},
+      `value` = #{value,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
